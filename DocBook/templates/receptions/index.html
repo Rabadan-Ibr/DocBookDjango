@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Главная страница
+{% endblock %}
+{% block content %}
+    <h1>Главная</h1>
+    <li><a href="{% url 'receptions:patient' %}">Пациенты</a></li>
+    <li><a href="{% url 'receptions:reception' %}">Приемы</a></li>
+{% endblock %}
