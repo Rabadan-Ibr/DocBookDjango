@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Карта пациента
+{% endblock %}
+{% block content %}
+    <h2>Пациент</h2>
+    <ul>
+        <li>{{ object.name }} {{ object.last_name }} {{ object.middle_name }}</li>
+        <li>{{ object.phone }}</li>
+        {% if object.note %}
+            <li>{{ object.note }}</li>
+        {% endif %}
+    </ul>
+    {% if receptions %}
+    <ul>
+    Приемы:
+        {% for reception in receptions %}
+            <li>
+            <a href={{ reception.get_absolute_url }}>
+                {{ reception }}
+            </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

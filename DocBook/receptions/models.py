@@ -1,6 +1,7 @@
 import django.utils.timezone
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -31,6 +32,9 @@ class Patient(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('receptions:patient', kwargs={'pk': self.pk})
+
 
 class Diagnosis(models.Model):
     text = models.CharField(verbose_name='Диагноз', max_length=200)
@@ -57,10 +61,8 @@ class Procedure(models.Model):
 class Reception(models.Model):
     doctor = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        related_name='receptions',
-        blank=True,
-        null=True
+        on_delete=models.PROTECT,
+        related_name='receptions'
     )
     patient = models.ForeignKey(
         'Patient',
@@ -93,3 +95,6 @@ class Reception(models.Model):
 
     def __str__(self):
         return str(self.patient) + '-' + str(self.date.date())
+
+    def get_absolute_url(self):
+        return reverse('receptions:reception', kwargs={'pk': self.pk})

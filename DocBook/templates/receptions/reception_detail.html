@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Прием
+{% endblock %}
+{% block content %}
+    <h2>Прием от: {{ object.date }}</h2>
+    <ul>
+        <li>Пациент: {{ object.patient.name }} {{ object.patient.last_name }} {{ object.patient.middle_name }}</li>
+        <li>Врач: {{ object.doctor.first_name }} {{ object.doctor.last_name }}</li>
+        {% if diagnosis %}
+            <hr>
+            <h7>Поставленный диагноз:</h7>
+            {% for diag in diagnosis %}
+                <li>{{ diag.text }}</li>
+            {% endfor %}
+        {% endif %}
+        {% if procedures %}
+            <hr>
+            <h7>Проведеные процедуры:</h7>
+            {% for proc in procedures %}
+                <li>{{ proc.text }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% endblock %}

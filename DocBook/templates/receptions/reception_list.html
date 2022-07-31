@@ -7,7 +7,11 @@
     <h2>Приемы</h2>
     <ul>
         {% for reception in object_list %}
-            <li>Пациент: {{ reception.patient.name }} {{ reception.patient.last_name }}. Принимал: {{ reception.doctor.username }}</li>
+            <li>
+                <a href={{ reception.get_absolute_url }}>
+                    Пациент: {{ reception.patient.name }} {{ reception.patient.last_name }}. Принимал: {{ reception.doctor.get_full_name }} - {{ reception.date }}
+                </a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

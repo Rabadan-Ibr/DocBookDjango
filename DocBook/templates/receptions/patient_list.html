@@ -7,7 +7,9 @@
     <h2>Пациенты</h2>
     <ul>
         {% for patient in object_list %}
-            <li>{{ patient.name }} {{ patient.last_name }}</li>
+            <li>
+                <a href={{ patient.get_absolute_url }}>{{ patient.name }} {{ patient.last_name }}</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
