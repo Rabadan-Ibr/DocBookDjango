@@ -32,11 +32,11 @@
                     </li>
                     {% if request.user.is_authenticated %}
                     <li class="u-nav-item">
-                        <a class="u-border-2 u-border-active-grey-90 u-border-hover-grey-50 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="{% url 'auth:logout' %}" style="padding: 10px 0px;">Выйти</a>
+                        <a class="u-border-2 u-border-active-grey-90 u-border-hover-grey-50 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="{% url 'users:logout' %}" style="padding: 10px 0px;">Выйти</a>
                     </li>
                     {% else %}
                     <li class="u-nav-item">
-                        <a class="u-border-2 u-border-active-grey-90 u-border-hover-grey-50 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="{% url 'auth:login' %}" style="padding: 10px 0px;">Войти</a>
+                        <a class="u-border-2 u-border-active-grey-90 u-border-hover-grey-50 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="{% url 'users:login' %}" style="padding: 10px 0px;">Войти</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -54,11 +54,11 @@
                             </li>
                             {% if request.user.is_authenticated %}
                                 <li class="u-nav-item">
-                                     <a class="u-button-style u-nav-link" href="{% url 'auth:logout' %}">Выйти</a>
+                                     <a class="u-button-style u-nav-link" href="{% url 'users:logout' %}">Выйти</a>
                                 </li>
                             {% else %}
                                 <li class="u-nav-item">
-                                    <a class="u-button-style u-nav-link" href="{% url 'auth:login' %}">Войти</a>
+                                    <a class="u-button-style u-nav-link" href="{% url 'users:login' %}">Войти</a>
                                 </li>
                             {% endif %}
                         </ul>
