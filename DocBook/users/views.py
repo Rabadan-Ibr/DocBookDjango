@@ -10,5 +10,5 @@ class SignUp(CreateView):
     для обработки формы регистрации пользователя.
     """
     form_class = CreationForm
-    success_url = reverse_lazy('posts:index')
+    success_url = reverse_lazy('receptions:index')
     template_name = 'users/signup.html'

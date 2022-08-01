@@ -23,4 +23,10 @@
             {% endfor %}
         {% endif %}
     </ul>
+    <a class="btn btn-primary" href="{% url 'receptions:update_reception' object.id %}">
+          редактировать запись
+    </a>
+    <a class="btn btn-primary" href="{% url 'receptions:delete_reception' object.id %}">
+          удалить запись
+    </a>
 {% endblock %}

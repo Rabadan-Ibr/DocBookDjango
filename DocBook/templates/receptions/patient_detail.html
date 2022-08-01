@@ -24,4 +24,12 @@
         {% endfor %}
     </ul>
     {% endif %}
+    <ul>
+    <a class="btn btn-primary" href="{% url 'receptions:create_reception' %}">
+          Добавить прием
+    </a>
+    </ul>
+    <a class="btn btn-primary" href="{% url 'receptions:update_patient' object.id %}">
+          Редактировать запись
+    </a>
 {% endblock %}

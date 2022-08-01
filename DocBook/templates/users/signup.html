@@ -1,8 +1,13 @@
-{% extends 'base.html' %}
-
-{% block title %}
-  Регистрация
-{% endblock %}
+{% extends "base.html" %}
+{% block title %} Зарегистрироваться {% endblock %}
 {% block content %}
-
+    {% include 'includes/check_form_err.html' %}
+    <form method="post">{% csrf_token %}
+        {% include 'includes/cust_field_form.html' %}
+        <div class="col-md-6 offset-md-4">
+            <button type="submit" class="btn btn-primary">
+                Зарегистрироваться
+            </button>
+        </div>
+    </form>
 {% endblock %}

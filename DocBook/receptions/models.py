@@ -46,6 +46,9 @@ class Diagnosis(models.Model):
     def __str__(self):
         return self.text[:30]
 
+    def get_absolute_url(self):
+        return reverse('receptions:update_diagnosis', kwargs={'pk': self.pk})
+
 
 class Procedure(models.Model):
     text = models.CharField(verbose_name='Лечение', max_length=200)
@@ -56,6 +59,9 @@ class Procedure(models.Model):
 
     def __str__(self):
         return self.text[:30]
+
+    def get_absolute_url(self):
+        return reverse('receptions:update_procedure', kwargs={'pk': self.pk})
 
 
 class Reception(models.Model):

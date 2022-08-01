@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Диагнозы
+{% endblock %}
+{% block content %}
+    <h2>Диагнозы</h2>
+    <ul>
+        {% for diagnosis in object_list %}
+            <li>
+                <a href={{ diagnosis.get_absolute_url }}>{{ diagnosis.text }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

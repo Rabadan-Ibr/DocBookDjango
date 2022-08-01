@@ -6,5 +6,11 @@
 {% block content %}
     <h1>Главная</h1>
     <li><a href="{% url 'receptions:patients' %}">Пациенты</a></li>
+    <li><a href="{% url 'receptions:create_patient' %}">Добавить пациента</a></li>
     <li><a href="{% url 'receptions:receptions' %}">Приемы</a></li>
+    <li><a href="{% url 'receptions:create_reception' %}">Добавить прием</a></li>
+    <li><a href="{% url 'receptions:diagnoses' %}">Диагнозы</a></li>
+    <li><a href="{% url 'receptions:create_diagnosis' %}">Добавить диагноз</a></li>
+    <li><a href="{% url 'receptions:procedures' %}">Процедуры</a></li>
+    <li><a href="{% url 'receptions:create_procedure' %}">Добавить процедуру</a></li>
 {% endblock %}
