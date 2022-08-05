@@ -5,7 +5,40 @@
 {% endblock %}
 {% block content %}
     <h1>Главная</h1>
-    <li><a href="{% url 'receptions:patients' %}">Пациенты</a></li>
+    Книга учета пациентов.
+    {% if user.is_authenticated %}
+    <h4>Поиск пациента</h4>
+    <form method="get" action="{% url 'receptions:patients' %}">
+        <label>
+            Введите полностью или частично имя или фамилие или отчество
+            <br>
+            <input type="text" name="search">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
+    <h4>Поиск приема</h4>
+    <form method="get" action="{% url 'receptions:receptions' %}">
+        <label>
+            Введите дату приема
+            <br>
+            <input type="date" name="search">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
+    <form method="get" action="{% url 'receptions:receptions' %}">
+        Выбирите диапозон дат
+        <br>
+        <label>
+            От <input type="date" name="search_from">
+        </label>
+        <label>
+            До <input type="date" name="search_to">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
+    <br>
+    <ul>
+    <li><a href="{% url 'receptions:patients' %}">Все пациенты</a></li>
     <li><a href="{% url 'receptions:create_patient' %}">Добавить пациента</a></li>
     <li><a href="{% url 'receptions:receptions' %}">Приемы</a></li>
     <li><a href="{% url 'receptions:create_reception' %}">Добавить прием</a></li>
@@ -13,4 +46,9 @@
     <li><a href="{% url 'receptions:create_diagnosis' %}">Добавить диагноз</a></li>
     <li><a href="{% url 'receptions:procedures' %}">Процедуры</a></li>
     <li><a href="{% url 'receptions:create_procedure' %}">Добавить процедуру</a></li>
+    </ul>
+    {% else %}
+        <br>
+        Для работы необходимо авторизоваться.
+    {% endif %}
 {% endblock %}

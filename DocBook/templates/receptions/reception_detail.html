@@ -6,7 +6,12 @@
 {% block content %}
     <h2>Прием от: {{ object.date }}</h2>
     <ul>
-        <li>Пациент: {{ object.patient.name }} {{ object.patient.last_name }} {{ object.patient.middle_name }}</li>
+        <li>
+            Пациент:
+            <a href="{% url 'receptions:patient' object.patient.id %}">
+                {{ object.patient.name }} {{ object.patient.last_name }} {{ object.patient.middle_name }}
+            </a>
+        </li>
         <li>Врач: {{ object.doctor.first_name }} {{ object.doctor.last_name }}</li>
         {% if diagnosis %}
             <hr>
@@ -26,6 +31,7 @@
     <a class="btn btn-primary" href="{% url 'receptions:update_reception' object.id %}">
           редактировать запись
     </a>
+    <br>
     <a class="btn btn-primary" href="{% url 'receptions:delete_reception' object.id %}">
           удалить запись
     </a>

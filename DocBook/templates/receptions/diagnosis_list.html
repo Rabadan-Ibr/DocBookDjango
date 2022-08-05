@@ -6,10 +6,19 @@
 {% block content %}
     <h2>Диагнозы</h2>
     <ul>
-        {% for diagnosis in object_list %}
-            <li>
-                <a href={{ diagnosis.get_absolute_url }}>{{ diagnosis.text }}</a>
-            </li>
-        {% endfor %}
+        {% include 'includes/list_view.html' %}
     </ul>
+    <ul>
+        {% include 'includes/paginator.html' %}
+    </ul>
+    <ul>
+        <a href="{% url 'receptions:create_diagnosis' %}">Добавить диагноз</a>
+    </ul>
+    <h4>Поиск диагноза</h4>
+    <form method="get" action="{% url 'receptions:diagnoses' %}">
+        <label>
+            <input type="text" name="search">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
 {% endblock %}

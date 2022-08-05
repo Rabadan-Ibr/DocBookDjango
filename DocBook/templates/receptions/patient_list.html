@@ -4,12 +4,16 @@
   Пациенты
 {% endblock %}
 {% block content %}
-    <h2>Пациенты</h2>
+    <h2>
+        {% if search %}
+            Найденные пациенты
+        {% else %}
+            Пациенты
+        {% endif %}
+    </h2>
+    {% include 'includes/list_view.html' %}
     <ul>
-        {% for patient in object_list %}
-            <li>
-                <a href={{ patient.get_absolute_url }}>{{ patient.name }} {{ patient.last_name }}</a>
-            </li>
-        {% endfor %}
+    {% include 'includes/paginator.html' %}
     </ul>
+    <li><a href="{% url 'receptions:create_patient' %}">Добавить пациента</a></li>
 {% endblock %}

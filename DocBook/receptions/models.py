@@ -30,7 +30,7 @@ class Patient(models.Model):
         verbose_name_plural = 'Пациенты'
 
     def __str__(self):
-        return self.name
+        return str(self.last_name + ' ' + self.name + ' ' + self.middle_name)
 
     def get_absolute_url(self):
         return reverse('receptions:patient', kwargs={'pk': self.pk})
@@ -72,6 +72,7 @@ class Reception(models.Model):
     )
     patient = models.ForeignKey(
         'Patient',
+        verbose_name='Пациент',
         on_delete=models.CASCADE,
         related_name='receptions'
     )
@@ -81,11 +82,13 @@ class Reception(models.Model):
     )
     diagnosis = models.ManyToManyField(
         'Diagnosis',
+        verbose_name='Диагноз',
         related_name='receptions',
         blank=True
     )
     procedure = models.ManyToManyField(
         'Procedure',
+        verbose_name='Процедуры',
         related_name='receptions',
         blank=True
     )
@@ -100,7 +103,7 @@ class Reception(models.Model):
         verbose_name_plural = 'Приемы'
 
     def __str__(self):
-        return str(self.patient) + '-' + str(self.date.date())
+        return f'Пациент: {self.patient.last_name} {self.patient.name} - {self.date.date()}'
 
     def get_absolute_url(self):
         return reverse('receptions:reception', kwargs={'pk': self.pk})

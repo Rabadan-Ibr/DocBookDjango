@@ -6,10 +6,19 @@
 {% block content %}
     <h2>Процедуры</h2>
     <ul>
-        {% for procedure in object_list %}
-            <li>
-                <a href={{ procedure.get_absolute_url }}>{{ procedure.text }}</a>
-            </li>
-        {% endfor %}
+        {% include 'includes/list_view.html' %}
     </ul>
+    <ul>
+        {% include 'includes/paginator.html' %}
+    </ul>
+    <ul>
+        <a href="{% url 'receptions:create_procedure' %}">Добавить процедуру</a>
+    </ul>
+    <h4>Поиск процедуры</h4>
+    <form method="get" action="{% url 'receptions:procedures' %}">
+        <label>
+            <input type="text" name="search">
+        </label>
+        <input type="submit" value="Найти">
+    </form>
 {% endblock %}
