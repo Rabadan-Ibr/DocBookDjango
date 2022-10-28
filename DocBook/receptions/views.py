@@ -1,8 +1,11 @@
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from . models import Patient, Reception, Diagnosis, Procedure
-from django.urls import reverse_lazy
-from django.db.models import Q
 import datetime
+
+from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView)
+
+from .models import Diagnosis, Patient, Procedure, Reception
 
 
 class Index(TemplateView):
@@ -34,7 +37,9 @@ class PatientDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['receptions'] = user.receptions.filter(patient=self.get_object())
+        context['receptions'] = user.receptions.filter(
+            patient=self.get_object()
+        )
         return context
 
 
@@ -55,7 +60,11 @@ class ReceptionsList(ListView):
         date = self.request.GET.get('search')
         if date:
             date = datetime.datetime.strptime(date, '%Y-%m-%d')
-            return self.request.user.receptions.filter(date__day=date.day, date__month=date.month, date__year=date.year)
+            return self.request.user.receptions.filter(
+                date__day=date.day,
+                date__month=date.month,
+                date__year=date.year
+            )
         date_from = self.request.GET.get('search_from')
         date_to = self.request.GET.get('search_to')
         if date_from or date_to:
@@ -63,9 +72,13 @@ class ReceptionsList(ListView):
                 date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d')
                 if date_to:
                     date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d')
-                    return self.request.user.receptions.filter(Q(date__gte=date_from) & Q(date__lte=date_to))
+                    return self.request.user.receptions.filter(
+                        Q(date__gte=date_from) & Q(date__lte=date_to)
+                    )
                 else:
-                    return self.request.user.receptions.filter(date__gte=date_from)
+                    return self.request.user.receptions.filter(
+                        date__gte=date_from
+                    )
             else:
                 date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d')
                 return self.request.user.receptions.filter(date__lte=date_to)

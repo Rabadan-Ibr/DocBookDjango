@@ -6,10 +6,10 @@
 {% block content %}
     <h2>Пациент</h2>
     <ul>
-        <li>{{ object.name }} {{ object.last_name }} {{ object.middle_name }}</li>
-        <li>{{ object.phone }}</li>
+        <li>ФИО: {{ object.name }} {{ object.last_name }} {{ object.middle_name }}</li>
+        <li>Тел: {{ object.phone }}</li>
         {% if object.note %}
-            <li>{{ object.note }}</li>
+            <li>Примечание: {{ object.note }}</li>
         {% endif %}
     </ul>
     {% if receptions %}

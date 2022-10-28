@@ -1,6 +1,6 @@
 import django.utils.timezone
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.urls import reverse
 
 User = get_user_model()
@@ -103,7 +103,10 @@ class Reception(models.Model):
         verbose_name_plural = 'Приемы'
 
     def __str__(self):
-        return f'Пациент: {self.patient.last_name} {self.patient.name} - {self.date.date()}'
+        return (
+            f'Пациент: {self.patient.last_name}'
+            f'{self.patient.name} - {self.date.date()}'
+        )
 
     def get_absolute_url(self):
         return reverse('receptions:reception', kwargs={'pk': self.pk})
