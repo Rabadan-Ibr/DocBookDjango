@@ -1,7 +1,9 @@
 import django.utils.timezone
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from DocBook.conf import BRANCH_CHOICES
 
 User = get_user_model()
 
@@ -38,6 +40,11 @@ class Patient(models.Model):
 
 class Diagnosis(models.Model):
     text = models.CharField(verbose_name='Диагноз', max_length=200)
+    branch = models.CharField(
+        verbose_name='Отделение',
+        max_length=max(len(branch) for branch, show in BRANCH_CHOICES),
+        choices=BRANCH_CHOICES
+    )
 
     class Meta:
         verbose_name = 'Диагноз'
@@ -52,6 +59,11 @@ class Diagnosis(models.Model):
 
 class Procedure(models.Model):
     text = models.CharField(verbose_name='Лечение', max_length=200)
+    branch = models.CharField(
+        verbose_name='Отделение',
+        max_length=max(len(branch) for branch, show in BRANCH_CHOICES),
+        choices=BRANCH_CHOICES
+    )
 
     class Meta:
         verbose_name = 'Лечение'
@@ -62,6 +74,43 @@ class Procedure(models.Model):
 
     def get_absolute_url(self):
         return reverse('receptions:update_procedure', kwargs={'pk': self.pk})
+
+
+class Part(models.Model):
+    name = models.CharField(
+        verbose_name='Объект',
+        max_length=100
+    )
+
+    class Meta:
+        verbose_name = 'Объект'
+        verbose_name_plural = 'Объекты'
+
+
+class DiagnosisPart(models.Model):
+    diagnosis = models.ForeignKey(
+        Diagnosis,
+        on_delete=models.PROTECT,
+        related_name='diag_parts'
+    )
+    part = models.ForeignKey(
+        Part,
+        on_delete=models.PROTECT,
+        related_name='diag_parts'
+    )
+
+
+class ProcedurePart(models.Model):
+    procedure = models.ForeignKey(
+        Procedure,
+        on_delete=models.PROTECT,
+        related_name='proc_parts'
+    )
+    part = models.ForeignKey(
+        Part,
+        on_delete=models.PROTECT,
+        related_name='proc_parts'
+    )
 
 
 class Reception(models.Model):
@@ -81,19 +130,19 @@ class Reception(models.Model):
         default=django.utils.timezone.now
     )
     diagnosis = models.ManyToManyField(
-        'Diagnosis',
-        verbose_name='Диагноз',
+        DiagnosisPart,
+        verbose_name='Диагнозы',
         related_name='receptions',
         blank=True
     )
     procedure = models.ManyToManyField(
-        'Procedure',
+        ProcedurePart,
         verbose_name='Процедуры',
         related_name='receptions',
         blank=True
     )
     note = models.TextField(
-        verbose_name='Примичание',
+        verbose_name='Заключение',
         blank=True
     )
 
