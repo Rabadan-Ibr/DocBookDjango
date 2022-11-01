@@ -14,7 +14,7 @@ class UserAdmin(admin.ModelAdmin):
         'last_name',
         'is_active'
     )
-    search_fields = ('username',)
+    search_fields = ('first_name',)
     list_filter = ('branch',)
     list_editable = ('branch',)
 
