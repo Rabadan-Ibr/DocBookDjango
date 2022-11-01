@@ -92,9 +92,8 @@ class Reception(models.Model):
         related_name='receptions',
         blank=True
     )
-    note = models.CharField(
+    note = models.TextField(
         verbose_name='Примичание',
-        max_length=256,
         blank=True
     )
 
